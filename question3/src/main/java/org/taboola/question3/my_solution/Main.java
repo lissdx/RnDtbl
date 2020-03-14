@@ -90,12 +90,14 @@ public class Main {
 
         // Execute parallel transforming in main Thread
         List<String> res = stringsTransformer.transform(strings);
+        // Show result
         res.forEach( System.out::println);
 
         // Execute parallel transforming in parallel Threads
         List<List<String>> result = new ArrayList<>();
         final ExecutorService executor = Executors.newFixedThreadPool(MAX_THREAD);
 
+        // Create list of callable obj
         List<Callable<List<String>>> cacheables = new ArrayList<>();
         for( int i = 0; i < 10; i++){
             cacheables.add(new Callable<List<String>>() {
@@ -105,6 +107,8 @@ public class Main {
             });
         }
 
+        // execute the list of callable
+        // result gonna be <List<List<String>>>
         try {
             result = executor.invokeAll(cacheables)
                     .parallelStream()
@@ -122,7 +126,7 @@ public class Main {
             throw new TransformerException(e);
         }
 
-        // Print parallel / parallel result
+        // Show parallel / parallel result
         result.forEach( stringList -> stringList.forEach( System.out::println ));
 
         // Close and free resources

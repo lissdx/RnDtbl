@@ -1,8 +1,5 @@
 package org.taboola.question3.my_solution.transformer;
 
-//import com.google.common.base.Throwables;
-//import com.taptica.changedataprocess.flume.sink.sqlenrichredis.common.serializer.Serializer;
-
 public class TransformerBuilderFactory {
 
     public TransformerBuilderFactory() {

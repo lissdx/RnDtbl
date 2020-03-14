@@ -34,6 +34,7 @@ public class StringsTransformer implements Transformer<List<String>, List<String
 
         List<String> result = null;
 
+        // Create list of callable obj
         List<Callable<String>> cacheables = rawData.stream()
                 .map(str -> new Callable<String>() {
             public String call() {
@@ -41,6 +42,9 @@ public class StringsTransformer implements Transformer<List<String>, List<String
             }
         }).collect(Collectors.toList());
 
+        // Start all callable obj
+        // wait for result
+        // and create result (list of strings)
         try {
             result = executor.invokeAll(cacheables)
                     .parallelStream()
@@ -60,10 +64,12 @@ public class StringsTransformer implements Transformer<List<String>, List<String
         return result;
     }
 
+    // Implement Builder
     public static class Builder implements Transformer.Builder<List<String>, List<String>, StringFunction> {
 
         Function<String, String> transformers = (s) -> s;
 
+        // Add next transform function to transformation chain
         @Override
         public Builder addTransformer(StringFunction sf) {
             transformers = transformers.andThen(sf);
@@ -76,6 +82,7 @@ public class StringsTransformer implements Transformer<List<String>, List<String
     }
 
     public static interface StringFunction extends Function<String, String> {
+
         public String transform(String str);
 
         @Override
