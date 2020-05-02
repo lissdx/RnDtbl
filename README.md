@@ -1,4 +1,4 @@
-# 3 Questions Solution in Java
+# 3 Questions and my Solutions in Java
 There were 3 questions that I've solved.
 
 #### The Puzzle Topics:
